@@ -12,6 +12,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scrollbar-gutter:stable;background:#080808;color-scheme:dark;scrollbar-color:#333 #080808}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:#080808}
+::-webkit-scrollbar-thumb{background:#333;border-radius:10px}
 body{background:#080808;color:#e4ddd4;font-family:'Space Grotesk',sans-serif;font-weight:300;overflow-x:hidden}
 #loader{position:fixed;inset:0;z-index:9999;background:#080808;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .85s ease,transform .85s ease}
 .lt{font-family:'Playfair Display',serif;font-size:clamp(26px,5vw,56px);font-weight:400;opacity:0;transform:translateY(20px);transition:opacity .9s ease,transform .9s ease;text-align:center;line-height:1.2}
@@ -152,7 +156,7 @@ footer{padding:24px 44px;border-top:.5px solid rgba(228,221,212,.07);display:fle
 }
 </style>
 </head>
-<body>
+<body style="overflow:hidden">
 <div id="loader">
   <div class="lt" id="lt">Portfolio von<br><em>Damien Jenal</em></div>
   <div class="ls" id="ls">Videograf — Zürich</div>
