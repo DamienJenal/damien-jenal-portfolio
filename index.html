@@ -57,11 +57,11 @@ nav::after{content:'';position:absolute;inset:0;background:linear-gradient(to bo
 .card-box:hover .card-arrow{border-color:rgba(228,221,212,.7);color:#e4ddd4}
 .card-index{position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(228,221,212,.06);z-index:3}
 .card-index-fill{height:100%;background:rgba(228,221,212,.3)}
-#ov{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .3s ease}
+#ov{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;pointer-events:none;touch-action:pan-y;opacity:0;transition:opacity .3s ease}
 #ov.open{pointer-events:all;opacity:1}
 .ov-back{position:absolute;inset:0;background:rgba(8,8,8,.75);backdrop-filter:blur(20px) brightness(.48);opacity:0;transition:opacity .4s ease}
 #ov.open .ov-back{opacity:1}
-.ov-card{position:relative;z-index:1;background:#111;border:.5px solid rgba(228,221,212,.12);border-radius:14px;width:min(1100px,96vw);max-height:92vh;overflow-y:auto;display:grid;grid-template-columns:290px 1fr;transform:scale(.85) translateY(30px) rotate(-1deg);opacity:0;transition:transform .52s cubic-bezier(.34,1.4,.64,1),opacity .32s ease}
+.ov-card{position:relative;z-index:1;background:#111;border:.5px solid rgba(228,221,212,.12);border-radius:14px;width:min(1100px,96vw);max-height:92vh;overflow-y:auto;touch-action:pan-y;display:grid;grid-template-columns:290px 1fr;transform:scale(.85) translateY(30px) rotate(-1deg);opacity:0;transition:transform .52s cubic-bezier(.34,1.4,.64,1),opacity .32s ease}
 #ov.open .ov-card{transform:scale(1) translateY(0) rotate(0);opacity:1}
 .ov-card.closing{transform:scale(.9) translateY(50px) rotate(.9deg)!important;opacity:0!important;transition:transform .36s cubic-bezier(.76,0,.24,1),opacity .26s ease!important}
 .ov-side{padding:32px 24px;border-right:.5px solid rgba(228,221,212,.07);display:flex;flex-direction:column;gap:20px}
@@ -84,7 +84,7 @@ nav::after{content:'';position:absolute;inset:0;background:linear-gradient(to bo
 .ov-still{aspect-ratio:16/9;border-radius:4px;overflow:hidden;background:#0d0d0d;border:.5px solid rgba(228,221,212,.07)}
 .ov-still-in{width:100%;height:100%;background-size:cover;background-position:center;transition:transform .5s ease}
 .ov-still:hover .ov-still-in{transform:scale(1.04)}
-.ov-close{position:absolute;top:13px;right:13px;width:28px;height:28px;border-radius:50%;border:.5px solid rgba(228,221,212,.12);background:rgba(8,8,8,.7);color:rgba(228,221,212,.4);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:3}
+.ov-close{position:fixed;top:13px;right:13px;width:28px;height:28px;border-radius:50%;border:.5px solid rgba(228,221,212,.12);background:rgba(8,8,8,.7);color:rgba(228,221,212,.4);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:3}
 .ov-close:hover{border-color:rgba(228,221,212,.5);color:#e4ddd4}
 #pto{position:fixed;inset:0;z-index:400;background:#080808;transform:translateY(100%);transition:none;pointer-events:none}
 .about-inner{max-width:1100px;margin:0 auto;padding:110px 44px 80px}
