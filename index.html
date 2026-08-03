@@ -140,7 +140,7 @@ footer{padding:24px 44px;border-top:.5px solid rgba(228,221,212,.07);display:fle
 .fl a{font-size:9px;color:rgba(228,221,212,.17);text-decoration:none;letter-spacing:.1em;transition:color .2s}
 .fl a:hover{color:rgba(228,221,212,.5)}
 @media(max-width:720px){
-  .ov-card{grid-template-columns:1fr}
+  .ov-card{grid-template-columns:1fr;width:90vw}
   .ov-side{border-right:none;border-bottom:.5px solid rgba(228,221,212,.07)}
   .about-grid,.contact-grid,.crow{grid-template-columns:1fr}
   .about-grid>div:nth-child(2){display:contents}
@@ -382,7 +382,9 @@ function openOv(i){
 }
 function closeOv(){
   const c=document.getElementById('ovc');
+  const btn=document.querySelector('.ov-close');
   c.classList.add('closing');
+  btn.style.opacity='0';
   document.getElementById('ov').classList.remove('open');
   setTimeout(()=>{c.classList.remove('closing');document.body.style.overflow='';},380);
 }
@@ -392,6 +394,7 @@ function positionOvClose(){
   if(!ovEl.classList.contains('open'))return;
   const card=document.getElementById('ovc');
   const btn=document.querySelector('.ov-close');
+  btn.style.opacity='1';
   const ovRect=ovEl.getBoundingClientRect();
   const cardTop=ovRect.top+card.offsetTop;
   const cardRight=ovRect.left+card.offsetLeft+card.offsetWidth;
