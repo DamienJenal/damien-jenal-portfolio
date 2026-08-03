@@ -152,7 +152,7 @@ footer{padding:24px 44px;border-top:.5px solid rgba(228,221,212,.07);display:fle
 }
 </style>
 </head>
-<body>
+<body style="overflow:hidden">
 <div id="loader">
   <div class="lt" id="lt">Portfolio von<br><em>Damien Jenal</em></div>
   <div class="ls" id="ls">Videograf — Zürich</div>
@@ -316,7 +316,7 @@ window.addEventListener('load',()=>{
     pct=Math.min(100,pct+Math.random()*3+1.4);
     lf.style.width=pct+'%';lp.textContent=Math.floor(pct)+'%';
     if(pct<100){setTimeout(tick,55);}
-    else{setTimeout(()=>{loader.style.opacity='0';loader.style.transform='translateY(-100%)';setTimeout(()=>{loader.style.display='none';buildCards();var v=document.getElementById('showreelVideo');if(v){v.currentTime=0;v.play();}startCookieTimer();},850);},260);}
+    else{setTimeout(()=>{loader.style.opacity='0';loader.style.transform='translateY(-100%)';setTimeout(()=>{loader.style.display='none';document.body.style.overflow='';buildCards();var v=document.getElementById('showreelVideo');if(v){v.currentTime=0;v.play();}startCookieTimer();},850);},260);}
   })();
 });
 function buildCards(){
