@@ -84,7 +84,7 @@ nav::after{content:'';position:absolute;inset:0;background:linear-gradient(to bo
 .ov-still{aspect-ratio:16/9;border-radius:4px;overflow:hidden;background:#0d0d0d;border:.5px solid rgba(228,221,212,.07)}
 .ov-still-in{width:100%;height:100%;background-size:cover;background-position:center;transition:transform .5s ease}
 .ov-still:hover .ov-still-in{transform:scale(1.04)}
-.ov-close{position:fixed;top:13px;right:13px;width:28px;height:28px;border-radius:50%;border:.5px solid rgba(228,221,212,.12);background:rgba(8,8,8,.7);color:rgba(228,221,212,.4);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:3}
+.ov-close{position:fixed;top:13px;right:13px;width:28px;height:28px;border-radius:50%;border:.5px solid rgba(228,221,212,.12);background:rgba(8,8,8,.7);color:rgba(228,221,212,.4);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:opacity .2s,border-color .2s,color .2s;z-index:3}
 .ov-close:hover{border-color:rgba(228,221,212,.5);color:#e4ddd4}
 #pto{position:fixed;inset:0;z-index:400;background:#080808;transform:translateY(100%);transition:none;pointer-events:none}
 .about-inner{max-width:1100px;margin:0 auto;padding:110px 44px 80px}
@@ -378,13 +378,29 @@ function openOv(i){
     <div class="ov-stills-wrap"><div class="ov-stills-lbl">Stills</div><div class="ov-stills">${stillsHTML}</div></div>`;
   document.getElementById('ov').classList.add('open');
   document.body.style.overflow='hidden';
+  positionOvClose();
 }
 function closeOv(){
   const c=document.getElementById('ovc');
   c.classList.add('closing');
-  setTimeout(()=>{document.getElementById('ov').classList.remove('open');c.classList.remove('closing');document.body.style.overflow='';},380);
+  document.getElementById('ov').classList.remove('open');
+  setTimeout(()=>{c.classList.remove('closing');document.body.style.overflow='';},380);
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeOv();});
+function positionOvClose(){
+  const ovEl=document.getElementById('ov');
+  if(!ovEl.classList.contains('open'))return;
+  const card=document.getElementById('ovc');
+  const btn=document.querySelector('.ov-close');
+  const ovRect=ovEl.getBoundingClientRect();
+  const cardTop=ovRect.top+card.offsetTop;
+  const cardRight=ovRect.left+card.offsetLeft+card.offsetWidth;
+  const scrollbarW=card.offsetWidth-card.clientWidth;
+  btn.style.top=(cardTop+13)+'px';
+  btn.style.left=(cardRight-41-scrollbarW)+'px';
+  btn.style.right='auto';
+}
+window.addEventListener('resize',positionOvClose);
 function sendMail(){
   const fields=document.querySelectorAll('#contact-page .ci');
   const name=fields[0].value,email=fields[1].value,phone=fields[2].value,msg=fields[3].value;
