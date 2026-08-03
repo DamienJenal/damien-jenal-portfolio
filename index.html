@@ -12,6 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scrollbar-gutter:stable;background:#080808}
 body{background:#080808;color:#e4ddd4;font-family:'Space Grotesk',sans-serif;font-weight:300;overflow-x:hidden}
 #loader{position:fixed;inset:0;z-index:9999;background:#080808;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .85s ease,transform .85s ease}
 .lt{font-family:'Playfair Display',serif;font-size:clamp(26px,5vw,56px);font-weight:400;opacity:0;transform:translateY(20px);transition:opacity .9s ease,transform .9s ease;text-align:center;line-height:1.2}
@@ -28,7 +29,7 @@ nav::after{content:'';position:absolute;inset:0;background:linear-gradient(to bo
 .nav-links a{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(228,221,212,.38);text-decoration:none;transition:color .2s;cursor:pointer}
 .nav-links a:hover,.nav-links a.active{color:#e4ddd4}
 .page{display:none}.page.active{display:block}
-#hero{position:relative;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:40px 44px}
+#hero{position:relative;height:100vh;height:100dvh;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:40px 44px}
 .sreel-bg{position:absolute;inset:0;background:#0e0e0e}
 .sreel-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.92) 0%,rgba(8,8,8,.1) 60%)}
 .hero-content{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:flex-end}
@@ -310,13 +311,14 @@ window.addEventListener('load',()=>{
   const lt=document.getElementById('lt'),ls=document.getElementById('ls');
   const lf=document.getElementById('lf'),lp=document.getElementById('lp');
   const loader=document.getElementById('loader');
+  buildCards();
   requestAnimationFrame(()=>{lt.style.opacity='1';lt.style.transform='translateY(0)';ls.style.opacity='1';});
   let pct=0;
   (function tick(){
     pct=Math.min(100,pct+Math.random()*3+1.4);
     lf.style.width=pct+'%';lp.textContent=Math.floor(pct)+'%';
     if(pct<100){setTimeout(tick,55);}
-    else{setTimeout(()=>{loader.style.opacity='0';loader.style.transform='translateY(-100%)';setTimeout(()=>{loader.style.display='none';document.body.style.overflow='';buildCards();var v=document.getElementById('showreelVideo');if(v){v.currentTime=0;v.play();}startCookieTimer();},850);},260);}
+    else{setTimeout(()=>{loader.style.opacity='0';loader.style.transform='translateY(-100%)';setTimeout(()=>{loader.style.display='none';document.body.style.overflow='';var v=document.getElementById('showreelVideo');if(v){v.currentTime=0;v.play();}startCookieTimer();},850);},260);}
   })();
 });
 function buildCards(){
