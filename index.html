@@ -282,7 +282,7 @@ footer{padding:24px 44px;border-top:.5px solid rgba(228,221,212,.07);display:fle
     <p class="about-body"><strong>Verantwortliche Person</strong><br>Damien Jenal<br>Tödistrasse 62<br>8800 Thalwil, Schweiz<br>E-Mail: dj.jenal5@gmail.com</p>
     <p class="about-body"><strong>Hosting</strong><br>Diese Website wird bei Netlify Inc. gehostet. Beim Besuch der Website werden automatisch technische Informationen (z.B. IP-Adresse, Browsertyp, Zugriffszeit) durch den Hosting-Anbieter verarbeitet, um die Website zuverlässig auszuliefern. Diese Daten werden nicht mit anderen Datenquellen zusammengeführt.</p>
     <p class="about-body"><strong>Kontaktformular</strong><br>Wenn du das Kontaktformular auf dieser Website nutzt, werden die von dir eingegebenen Daten (Name, E-Mail-Adresse, Nachricht) per E-Mail an Damien Jenal übermittelt. Diese Daten werden ausschliesslich zur Beantwortung deiner Anfrage verwendet und nicht an Dritte weitergegeben.</p>
-    <p class="about-body"><strong>Cookies und Tracking</strong><br>Diese Website verwendet aktuell keine Analyse- oder Tracking-Tools (z.B. Google Analytics) und setzt keine Cookies zu Werbe- oder Analysezwecken.</p>
+    <p class="about-body"><strong>Cookies und Tracking</strong><br>Diese Website verwendet Google Analytics, um anonyme Statistiken über Besucherzahlen und Nutzungsverhalten zu erheben. Diese Cookies werden nur mit deiner Zustimmung gesetzt, die du über das Cookie-Banner erteilst oder ablehnen kannst. Deine Zustimmung wird lokal in deinem Browser gespeichert. Weitere Informationen findest du in der Datenschutzerklärung von Google unter https://policies.google.com/privacy.</p>
     <p class="about-body"><strong>Deine Rechte</strong><br>Du hast das Recht, Auskunft über die zu deiner Person gespeicherten Daten zu verlangen sowie deren Berichtigung oder Löschung zu beantragen. Wende dich dafür an die oben genannte E-Mail-Adresse.</p>
     <p class="about-body"><strong>Änderungen</strong><br>Diese Datenschutzerklärung kann bei Weiterentwicklung der Website angepasst werden. Es gilt die jeweils aktuelle, auf dieser Seite publizierte Fassung.</p>
     <p class="about-body">Stand: Juli 2026</p>
@@ -316,7 +316,7 @@ window.addEventListener('load',()=>{
     pct=Math.min(100,pct+Math.random()*3+1.4);
     lf.style.width=pct+'%';lp.textContent=Math.floor(pct)+'%';
     if(pct<100){setTimeout(tick,55);}
-    else{setTimeout(()=>{loader.style.opacity='0';loader.style.transform='translateY(-100%)';setTimeout(()=>{loader.style.display='none';buildCards();var v=document.getElementById('showreelVideo');if(v){v.currentTime=0;v.play();}},850);},260);}
+    else{setTimeout(()=>{loader.style.opacity='0';loader.style.transform='translateY(-100%)';setTimeout(()=>{loader.style.display='none';buildCards();var v=document.getElementById('showreelVideo');if(v){v.currentTime=0;v.play();}startCookieTimer();},850);},260);}
   })();
 });
 function buildCards(){
@@ -403,12 +403,60 @@ function showPage(name){
     const nm={home:'nav-home',about:'nav-about',contact:'nav-contact'};
     document.getElementById(pm[name]).classList.add('active');
    const navEl=document.getElementById(nm[name]);if(navEl)navEl.classList.add('active');
-    window.scrollTo(0,0);
+    window.scrollTo(0,0);if(name==='about'||name==='contact')showCookieBannerNow();
     pto.style.transition='transform .42s cubic-bezier(.76,0,.24,1)';
     pto.style.transform='translateY(-100%)';
     setTimeout(()=>{pto.style.transition='none';pto.style.transform='translateY(100%)';},440);
   },380);
 }
 </script>
-</body>
+<div id="cookieBanner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:500;background:#111;border-top:.5px solid rgba(228,221,212,.15);padding:20px 24px;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;font-family:'Space Grotesk',sans-serif;">
+  <div style="color:rgba(228,221,212,.7);font-size:13px;line-height:1.6;max-width:600px;">Diese Website verwendet Cookies, um dir ein besseres Nutzererlebnis zu bieten. Mit Klick auf "Akzeptieren" stimmst du der Verwendung von Analyse-Cookies gemäss unserer <a onclick="showPage('datenschutz')" style="color:#e4ddd4;cursor:pointer;text-decoration:underline;">Datenschutzerklärung</a> zu.</div>
+  <div style="display:flex;gap:10px;flex-shrink:0;">
+    <button onclick="cookieChoice(false)" style="padding:11px 20px;background:transparent;color:rgba(228,221,212,.6);border:.5px solid rgba(228,221,212,.2);border-radius:4px;font-family:inherit;font-size:12px;cursor:pointer;">Ablehnen</button>
+    <button onclick="cookieChoice(true)" style="padding:11px 20px;background:#e4ddd4;color:#080808;border:none;border-radius:4px;font-family:inherit;font-size:12px;cursor:pointer;">Akzeptieren</button>
+  </div>
+</div>
+<script>
+(function(){
+  var cookieShown=false;
+  var cookieTimer=null;
+  function showCookieBanner(){
+    if(cookieShown||localStorage.getItem('cookieConsent'))return;
+    cookieShown=true;
+    if(cookieTimer)clearTimeout(cookieTimer);
+    document.getElementById('cookieBanner').style.display='flex';
+  }
+  window.showCookieBannerNow=showCookieBanner;
+  window.cookieChoice=function(accepted){
+    localStorage.setItem('cookieConsent',accepted?'granted':'denied');
+    document.getElementById('cookieBanner').style.display='none';
+    if(accepted)loadAnalytics();
+  };
+  function loadAnalytics(){
+    if(window.gaLoaded)return;
+    window.gaLoaded=true;
+    var s=document.createElement('script');
+    s.async=true;
+    s.src='https://www.googletagmanager.com/gtag/js?id=G-KSJK9YYFQS';
+    document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-KSJK9YYFQS');
+    window.gtag=gtag;
+  }
+  window.startCookieTimer=function(){
+    if(localStorage.getItem('cookieConsent'))return;
+    cookieTimer=setTimeout(showCookieBanner,10000);
+  };
+  window.addEventListener('scroll',function(){
+    var ws=document.getElementById('work-section');
+    if(ws&&ws.getBoundingClientRect().top<window.innerHeight){
+      showCookieBanner();
+    }
+  });
+  if(localStorage.getItem('cookieConsent')==='granted')loadAnalytics();
+})();
+</script></body>
 </html>
