@@ -57,7 +57,7 @@ nav::after{content:'';position:absolute;inset:0;background:linear-gradient(to bo
 .card-box:hover .card-arrow{border-color:rgba(228,221,212,.7);color:#e4ddd4}
 .card-index{position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(228,221,212,.06);z-index:3}
 .card-index-fill{height:100%;background:rgba(228,221,212,.3)}
-#ov{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;pointer-events:none;touch-action:pan-y;opacity:0;transition:opacity .3s ease}
+#ov{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;pointer-events:none;touch-action:pan-y; overflow-x:hidden;opacity:0;transition:opacity .3s ease}
 #ov.open{pointer-events:all;opacity:1}
 .ov-back{position:absolute;inset:0;background:rgba(8,8,8,.75);backdrop-filter:blur(20px) brightness(.48);opacity:0;transition:opacity .4s ease}
 #ov.open .ov-back{opacity:1}
@@ -291,10 +291,10 @@ footer{padding:24px 44px;border-top:.5px solid rgba(228,221,212,.07);display:fle
 </div><div id="ov">
   <div class="ov-back" onclick="closeOv()"></div>
   <div class="ov-card" id="ovc">
-    <button class="ov-close" onclick="closeOv()">✕</button>
     <div class="ov-side" id="ovs"></div>
     <div class="ov-main" id="ovm"></div>
   </div>
+  <button class="ov-close" onclick="closeOv()">×</button>
 </div>
 <script>
 const P = [
